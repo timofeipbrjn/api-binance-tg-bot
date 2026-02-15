@@ -9,16 +9,16 @@ from telebot import types
 load_dotenv()
 
 TOKEN = os.environ.get('BOT_TOKEN')
-YOUR_CONTACT = os.environ.get('ACCOUNT')
+CONTACT = os.environ.get('ACCOUNT')
 btn_back = types.KeyboardButton('Вернуться в главное меню')
 
 if TOKEN is None:
     raise ValueError("Переменная окружения BOT_TOKEN не найдена.")
 
-if YOUR_CONTACT is None:
+if CONTACT is None:
     raise ValueError("Контакт не указан.")
 
-contact: str = YOUR_CONTACT
+contact: str = CONTACT
 
 URL = 'https://api.binance.com/api/v3/ticker/price'
 bot = telebot.TeleBot(TOKEN)

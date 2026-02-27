@@ -1,0 +1,23 @@
+[MASTER]
+# Игнорируем папки виртуального окружения и миграции
+ignore=venv,env,.venv,migrations
+
+[MESSAGES CONTROL]
+# Список проверок, которые мы отключаем:
+disable=
+    C0114, # missing-module-docstring (докстринги в начале файла)
+    C0115, # missing-class-docstring (докстринги у классов)
+    C0116, # missing-function-docstring (докстринги у функций)
+    C0103, # invalid-name (ругань на короткие переменные типа 'db', 'id', 'i')
+    R0903, # too-few-public-methods (когда у класса 1 метод — это нормально)
+    W0703, # broad-except (запрет на Exception — иногда он нужен)
+    W0511, # fixme (ругань на комментарии TODO)
+    C0411, # wrong-import-order (если не хочешь париться с порядком импортов)
+    W0613, # unused-argument (в aiogram часто есть аргументы, которые не юзаем)
+    R0913, # too-many-arguments (иногда 6 аргументов — это жизнь)
+
+[FORMAT]
+max-line-length=150
+
+[BASIC]
+good-names=i,j,k,ex,Run,_,id,db,dp,up

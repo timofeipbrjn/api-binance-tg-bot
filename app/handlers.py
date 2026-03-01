@@ -4,13 +4,12 @@ from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 import app.keyboards as kb
 from services.api_client import CurrencyApiClient
-from services.sessions import GetCurSteps
+from services.sessions import GetCurSteps, InputCur
 import time
 
 router = Router()
 
 url = 'https://api.binance.com/api/v3/ticker/price'
-client = CurrencyApiClient(url)
 
 @router.message(Command('start'))
 async def cmd_start(msg: Message):
@@ -42,8 +41,8 @@ async def back_to_menu(msg: Message, state: FSMContext):
     await msg.answer("Вы вернулись в главное меню",
                  reply_markup=kb.main)
 
-@router.message(F.text == 'Курсы валют')
-async def currency(msg: Message, state: FSMContext):
+@router.message(F.text == 'Базовые валюты')
+async def base_converter(msg: Message, state: FSMContext):
     await state.set_state(GetCurSteps.first_currency)
     await msg.answer('Выберите первую валюту:',
                      reply_markup=kb.currency_choice)
@@ -56,18 +55,15 @@ async def get_first_currency(msg: Message, state: FSMContext):
     await state.set_state(GetCurSteps.second_currency)
 
 @router.message(GetCurSteps.second_currency)
-async def get_second_currency(msg: Message, state: FSMContext):
+async def get_second_currency(msg: Message, state: FSMContext, client: CurrencyApiClient):
     start = time.perf_counter()
     await state.update_data(second_currency=msg.text)
-    start = time.perf_counter()
     data = await state.get_data()
     first_cur = kb.CRYPTO[data.get("first_currency")]
     second_cur = kb.CRYPTO2[data.get("second_currency")]
     try:
         symbol = first_cur + second_cur
-        data = await client.get_data(symbol=symbol)
-        price = data['price']
-        price = str(price).rstrip("0").rstrip(".")
+        price = await client.get_data(symbol=symbol)
         end = time.perf_counter()
         text = f"💎 1 {first_cur} = {price} {second_cur}"
         await msg.answer(f"Вы выбрали {msg.text} второй валютой.\n{text}")
@@ -81,3 +77,31 @@ async def get_second_currency(msg: Message, state: FSMContext):
         await back_to_menu(msg, state)
         end = time.perf_counter()
         print(f'Скорость: {end - start}')
+
+@router.message(F.text == "Перевод по токену")
+async def universal_converter(msg: Message, state: FSMContext):
+    await msg.answer("Введите токен формата: BTC USDT (токен первой валюты [пробел] токен второй валюты)",
+                     reply_markup=kb.back_menu)
+    await state.set_state(InputCur.symbol)
+
+@router.message(InputCur.symbol)
+async def input_cur(msg: Message, state: FSMContext, client: CurrencyApiClient):
+    try:
+        if msg.text:
+            curs = msg.text.split()
+        else:
+            print("Нет токена")
+            return
+        first_cur = curs[0]
+        second_cur = curs[1]
+        symbol = first_cur + second_cur
+        price = await client.get_data(symbol=symbol)
+        text = f"💎 1 {first_cur} = {price} {second_cur}"
+        await msg.answer(text, reply_markup=kb.back_menu)
+    except ValueError:
+        await msg.answer("Ошибка сервера API, попробуйте снова",
+                         reply_markup=kb.back_menu)
+    except Exception as e:
+        print(f"Критическая ошибка: {e}")
+        await msg.answer("Такого токена не существует.",
+                         reply_markup=kb.back_menu)

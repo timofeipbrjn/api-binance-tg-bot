@@ -6,7 +6,6 @@ CRYPTO = {
     'Binance coin': 'BNB',
     'Doge': 'DOGE',
     'Solana': 'SOL',
-    'Ripple': 'XRP',
     'Cardano': 'ADA'
 }
 
@@ -16,17 +15,14 @@ CRYPTO2 = {
     'Pound': 'GBP',
     'Lira': 'TRY',
     'Ien': 'JPY',
-    'Real': 'BRL',
-    'Dirham': 'AED'
+    'Real': 'BRL'
 }
 
 main = ReplyKeyboardMarkup(keyboard=[
-    [KeyboardButton(text='Курсы валют'), KeyboardButton(text='придумать чота с дб')],
-    [KeyboardButton(text='Доступные команды'), KeyboardButton(text='Обратная связь')],
-    [KeyboardButton(text='О боте')]
-],
-                        resize_keyboard=True,
-                        input_field_placeholder='Начальное меню')
+    [KeyboardButton(text='Базовые валюты'), KeyboardButton(text='Перевод по токену')],
+    [KeyboardButton(text='Доступные команды'), KeyboardButton(text='История операций')],
+    [KeyboardButton(text='Обратная связь'), KeyboardButton(text='О боте')]
+])
 
 links = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='Binance', url='https://www.binance.com/en')],
@@ -35,15 +31,20 @@ links = InlineKeyboardMarkup(inline_keyboard=[
 ])
 
 currency_choice = ReplyKeyboardMarkup(keyboard=[
-    [KeyboardButton(text=list(CRYPTO.keys())[0]), KeyboardButton(text=list(CRYPTO.keys())[4])],
-    [KeyboardButton(text=list(CRYPTO.keys())[1]), KeyboardButton(text=list(CRYPTO.keys())[5])],
-    [KeyboardButton(text=list(CRYPTO.keys())[2]), KeyboardButton(text=list(CRYPTO.keys())[6])],
-    [KeyboardButton(text=list(CRYPTO.keys())[3]), KeyboardButton(text="Назад в меню")]
+    [KeyboardButton(text=list(CRYPTO.keys())[0]), KeyboardButton(text=list(CRYPTO.keys())[3])],
+    [KeyboardButton(text=list(CRYPTO.keys())[1]), KeyboardButton(text=list(CRYPTO.keys())[4])],
+    [KeyboardButton(text=list(CRYPTO.keys())[2]), KeyboardButton(text=list(CRYPTO.keys())[5])],
+    [KeyboardButton(text="Назад в меню")]
 ])
 
 currency_choice2 = ReplyKeyboardMarkup(keyboard=[
-    [KeyboardButton(text=list(CRYPTO2.keys())[0]), KeyboardButton(text=list(CRYPTO2.keys())[4])],
-    [KeyboardButton(text=list(CRYPTO2.keys())[1]), KeyboardButton(text=list(CRYPTO2.keys())[5])],
-    [KeyboardButton(text=list(CRYPTO2.keys())[2]), KeyboardButton(text=list(CRYPTO2.keys())[6])],
-    [KeyboardButton(text=list(CRYPTO2.keys())[3]), KeyboardButton(text="Назад в меню")]
+    [KeyboardButton(text=list(CRYPTO2.keys())[0]), KeyboardButton(text=list(CRYPTO2.keys())[3])],
+    [KeyboardButton(text=list(CRYPTO2.keys())[1]), KeyboardButton(text=list(CRYPTO2.keys())[4])],
+    [KeyboardButton(text=list(CRYPTO2.keys())[2]), KeyboardButton(text=list(CRYPTO2.keys())[5])],
+    [KeyboardButton(text="Назад в меню")]
 ])
+
+back_menu = ReplyKeyboardMarkup(keyboard=[
+    [KeyboardButton(text="Назад в меню")],
+],
+                    resize_keyboard=True)

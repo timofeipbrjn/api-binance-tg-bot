@@ -5,10 +5,19 @@ CRYPTO = {
     'Ethereum': 'ETH',
     'Binance coin': 'BNB',
     'Doge': 'DOGE',
-    'Dollar': 'USDT',
+    'Solana': 'SOL',
+    'Ripple': 'XRP',
+    'Cardano': 'ADA'
+}
+
+CRYPTO2 = {
+    'Dollar(USDT)': 'USDT',
     'Euro': 'EUR',
     'Pound': 'GBP',
-    'Lira': 'TRY'
+    'Lira': 'TRY',
+    'Ien': 'JPY',
+    'Real': 'BRL',
+    'Dirham': 'AED'
 }
 
 main = ReplyKeyboardMarkup(keyboard=[
@@ -29,5 +38,12 @@ currency_choice = ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text=list(CRYPTO.keys())[0]), KeyboardButton(text=list(CRYPTO.keys())[4])],
     [KeyboardButton(text=list(CRYPTO.keys())[1]), KeyboardButton(text=list(CRYPTO.keys())[5])],
     [KeyboardButton(text=list(CRYPTO.keys())[2]), KeyboardButton(text=list(CRYPTO.keys())[6])],
-    [KeyboardButton(text=list(CRYPTO.keys())[3]), KeyboardButton(text=list(CRYPTO.keys())[7])]
+    [KeyboardButton(text=list(CRYPTO.keys())[3]), KeyboardButton(text="Назад в меню")]
+])
+
+currency_choice2 = ReplyKeyboardMarkup(keyboard=[
+    [KeyboardButton(text=list(CRYPTO2.keys())[0]), KeyboardButton(text=list(CRYPTO2.keys())[4])],
+    [KeyboardButton(text=list(CRYPTO2.keys())[1]), KeyboardButton(text=list(CRYPTO2.keys())[5])],
+    [KeyboardButton(text=list(CRYPTO2.keys())[2]), KeyboardButton(text=list(CRYPTO2.keys())[6])],
+    [KeyboardButton(text=list(CRYPTO2.keys())[3]), KeyboardButton(text="Назад в меню")]
 ])

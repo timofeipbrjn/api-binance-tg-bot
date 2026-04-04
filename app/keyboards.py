@@ -24,12 +24,6 @@ main = ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text='Обратная связь'), KeyboardButton(text='О боте')]
 ])
 
-links = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='Binance', url='https://www.binance.com/en')],
-    [InlineKeyboardButton(text='aiogram', url='https://aiogram.dev'), InlineKeyboardButton(text='iohttp', url='https://docs.aiohttp.org/en/stable/')],
-    [InlineKeyboardButton(text='Database', url='https://www.postgresql.org')]
-])
-
 currency_choice = ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text=list(CRYPTO.keys())[0]), KeyboardButton(text=list(CRYPTO.keys())[3])],
     [KeyboardButton(text=list(CRYPTO.keys())[1]), KeyboardButton(text=list(CRYPTO.keys())[4])],

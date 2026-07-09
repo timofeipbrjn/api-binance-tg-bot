@@ -2,8 +2,8 @@ import aiohttp
 
 class CurrencyApiClient:
     def __init__(self, url:str, session:aiohttp.ClientSession) -> None:
-        self.session = session
         self.url = url
+        self.session = session
 
     async def get_data(self, symbol: str):
         params = {"symbol": symbol}

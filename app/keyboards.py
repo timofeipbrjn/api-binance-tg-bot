@@ -38,7 +38,8 @@ currency_choice2 = ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text="Назад в меню")]
 ])
 
-back_menu = ReplyKeyboardMarkup(keyboard=[
-    [KeyboardButton(text="Назад в меню")],
-],
-                    resize_keyboard=True)
+cancel_inline = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [InlineKeyboardButton(text="🛑 Отмена", callback_data="cancel_fsm")]
+        ]
+)
